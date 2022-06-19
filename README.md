@@ -10,7 +10,9 @@ If you need it, however, to start automatically along with Windows, you'll need 
 
 If you have your own way to set auto start, you can do as you like.:)
 
+Darkmode start and end time was set default to 19:00 and 08:00. You can set it to your own preferences in `time.json`.
+
 # Modifying
-Currently, darkmode start time and end time was set in the code. If you need, you can change it by yourself. I'm planning to make it configurable externally.
+I'm using conan for package managing. To modify, you need to first run `conan install conanfile.txt` to install dependencies.
 
 If you wish to use it on other platforms, you can modify enableDarkmode() and disableDarkmode() and compile for your target platform.
