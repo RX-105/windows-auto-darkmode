@@ -3,8 +3,11 @@
 #include <chrono>
 #include <vector>
 #include <thread>
+#include <fstream>
+#include <nlohmann/json.hpp>
 
 using namespace ::std;
+using json = nlohmann::json;
 
 vector<string> splitString(string str, char delimiter)
 {
@@ -38,12 +41,32 @@ void disableDarkmode()
     system("reg.exe add HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize /v SystemUsesLightTheme /t REG_DWORD /d 1 /f >NUL 2>&1");
 }
 
+void readTimeProperty(int *start, int *end)
+{
+    string fileName = "time.json";
+    ifstream ifs = ifstream(fileName, ios::in);
+    if (ifs.fail())
+    {
+        cerr << "Config file " << fileName << " not found."
+             << "Falling back to defaults.";
+        return;
+    }
+    json j;
+    cout << "Reading time properties from config." << endl;
+    ifs >> j;
+    *start = j["start"];
+    *end = j["end"];
+    cout << "Start: " << *start << " End: " << *end << endl;
+    ifs.close();
+}
+
 int main()
 {
     bool exitFlag = false; // exit flag will never be true
     int status = 0;        // 0 for default, 1 for in dark, 2 for out of dark
     int DARKMODE_START = 19;
     int DARKMODE_END = 8;
+    readTimeProperty(&DARKMODE_START, &DARKMODE_END);
     while (!exitFlag)
     {
         auto time = chrono::system_clock::now();
