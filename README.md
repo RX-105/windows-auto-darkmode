@@ -16,3 +16,8 @@ Darkmode start and end time was set default to 19:00 and 08:00. You can set it t
 I'm using conan for package managing. To modify, you need to first run `conan install conanfile.txt` to install dependencies.
 
 If you wish to use it on other platforms, you can modify enableDarkmode() and disableDarkmode() and compile for your target platform.
+
+# And...
+I miss maven. ( ›´ω`‹ )
+
+I HATE using conan with vscode. (　^ω^)
